@@ -1,0 +1,5 @@
+{
+    "do_not_delete": [
+        "aws_vpc_peering_connection.requester"
+    ]
+}
