@@ -1,9 +1,6 @@
 locals {
   create_accepter = var.accepter != null ? true : false
 
-  # same_account = data.aws_arn.requester_vpc.account == data.aws_arn.accepter_vpc.account
-  # same_region  = data.aws_arn.requester_vpc.region == data.aws_arn.accepter_vpc.region
-
   requester_vpc_id   = element(split("/", var.requester.data.infrastructure.arn), 1)
   requester_vpc_cidr = var.requester.data.infrastructure.cidr
 
