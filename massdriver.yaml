@@ -3,7 +3,6 @@ name: aws-vpc-peering-connection
 version: 1.0.0
 description: An AWS VPC Peering Connection is a networking connection between two VPCs that enables you to route traffic between them privately.
 source_url: https://github.com/massdriver-cloud/aws-vpc-peering-connection
-type: application
 params:
   properties:
     accepter_vpc_arn:
