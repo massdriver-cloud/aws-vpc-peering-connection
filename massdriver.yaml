@@ -1,48 +1,50 @@
 schema: draft-07
-name: "aws-vpc-peering-connection"
-description: "An AWS VPC Peering Connection is a networking connection between two VPCs that enables you to route traffic between them privately."
-source_url: github.com/massdriver-cloud/aws-vpc-peering-connection
-access: private
-type: "infrastructure"
-
-
+name: aws-vpc-peering-connection
+version: 1.0.0
+description: An AWS VPC Peering Connection is a networking connection between two VPCs that enables you to route traffic between them privately.
+source_url: https://github.com/massdriver-cloud/aws-vpc-peering-connection
+type: application
 params:
   properties:
     accepter_vpc_arn:
       type: string
       title: Remote VPC ARN
-      description: "**IMPORTANT: Only set this value if you haven't connected a remote \"accepter\" VPC to the bundle!!!**\n If an accepter VPC is connected, this field is ignored and the value will be extracted from the connection artifact. Use this field if the remote VPC isn't managed by Massdriver or exists in different AWS account than the requester VPC. **This will require you to [accept the peering connection](https://docs.aws.amazon.com/vpc/latest/peering/accept-vpc-peering-connection.html) and [update the route tables](https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-routing.html) of the accepter VPC manually**!"
-      $md.immutable: true
-      $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/aws-arn.json
+      description: |-
+        **IMPORTANT: Only set this value if you haven't connected a remote "accepter" VPC to the bundle!!!**
+         If an accepter VPC is connected, this field is ignored and the value will be extracted from the connection artifact. Use this field if the remote VPC isn't managed by Massdriver or exists in different AWS account than the requester VPC. **This will require you to [accept the peering connection](https://docs.aws.amazon.com/vpc/latest/peering/accept-vpc-peering-connection.html) and [update the route tables](https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-routing.html) of the accepter VPC manually**!
+      "$md.immutable": true
+      "$ref": https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/aws-arn.json
     accepter_vpc_cidr:
       type: string
       title: Remote VPC CIDR
-      description: "**IMPORTANT: Only set this value if you haven't connected a remote \"accepter\" VPC to the bundle!!!**\n If an accepter VPC is connected, this field is ignored and the value will be extracted from the connection artifact. Use this field if the remote VPC isn't managed by Massdriver or exists in different AWS account than the requester VPC. **This will require you to [accept the peering connection](https://docs.aws.amazon.com/vpc/latest/peering/accept-vpc-peering-connection.html) and [update the route tables](https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-routing.html) of the accepter VPC manually**!"
-      $md.immutable: true
-      pattern: ^(?:10\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])|172\.(?:1[6-9]|2[0-9]|3[0-1])|192\.168)(?:\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){2}(?:/(?:1[6-9]|2[0-4]))$
+      description: |-
+        **IMPORTANT: Only set this value if you haven't connected a remote "accepter" VPC to the bundle!!!**
+         If an accepter VPC is connected, this field is ignored and the value will be extracted from the connection artifact. Use this field if the remote VPC isn't managed by Massdriver or exists in different AWS account than the requester VPC. **This will require you to [accept the peering connection](https://docs.aws.amazon.com/vpc/latest/peering/accept-vpc-peering-connection.html) and [update the route tables](https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-routing.html) of the accepter VPC manually**!
+      "$md.immutable": true
+      pattern: "^(?:10\\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])|172\\.(?:1[6-9]|2[0-9]|3[0-1])|192\\.168)(?:\\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){2}(?:/(?:1[6-9]|2[0-4]))$"
       message:
         pattern: Range must be from private networking space (10.X.X.X, 172.16-31.X.X, 192.168.X.X). Mask must be between 16 and 24
-
-
 connections:
   required:
   - aws_authentication
   - requester
   properties:
     aws_authentication:
-      $ref: massdriver/aws-iam-role
+      "$ref": massdriver/aws-iam-role
     requester:
-      $ref: massdriver/aws-vpc
+      "$ref": massdriver/aws-vpc
     accepter:
-      $ref: massdriver/aws-vpc
-
-
+      "$ref": massdriver/aws-vpc
 artifacts:
   properties: {}
-
-
 ui:
   ui:order:
-    - accepter_vpc_arn
-    - accepter_vpc_cidr
-    - "*"
+  - accepter_vpc_arn
+  - accepter_vpc_cidr
+  - "*"
+steps:
+- path: src
+  provisioner: opentofu
+  config:
+    checkov:
+      enable: true
