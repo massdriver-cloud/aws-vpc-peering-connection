@@ -147,8 +147,8 @@ Connections from other bundles that this bundle depends on.
         ```
 
 - **`aws_authentication`** *(object)*: . Cannot contain additional properties.
-  - **`data`** *(object)*
-    - **`arn`** *(string)*: Amazon Resource Name.
+  - **`data`** *(object)*: Configure your AWS IAM Role connection details. Cannot contain additional properties.
+    - **`arn`** *(string)*: The Amazon Resource Name (ARN) of the IAM role that Massdriver will assume to access your AWS account. Format: arn:aws:iam::ACCOUNT_ID:role/ROLE_NAME.
 
       Examples:
       ```json
@@ -159,16 +159,7 @@ Connections from other bundles that this bundle depends on.
       "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
       ```
 
-    - **`external_id`** *(string)*: An external ID is a piece of data that can be passed to the AssumeRole API of the Security Token Service (STS). You can then use the external ID in the condition element in a role's trust policy, allowing the role to be assumed only when a certain value is present in the external ID.
-  - **`specs`** *(object)*
-    - **`aws`** *(object)*: .
-      - **`region`** *(string)*: AWS Region to provision in.
-
-        Examples:
-        ```json
-        "us-west-2"
-        ```
-
+    - **`external_id`** *(string)*: Optional security token used to prevent confused deputy attacks. If your IAM role's trust policy requires an external ID, enter it here. This value must match the external ID condition in your role's trust policy.
 - **`requester`** *(object)*: . Cannot contain additional properties.
   - **`data`** *(object)*
     - **`infrastructure`** *(object)*
