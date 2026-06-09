@@ -29,11 +29,11 @@ connections:
   - requester
   properties:
     aws_authentication:
-      "$ref": massdriver/aws-iam-role
+      "$ref": aws-iam-role
     requester:
-      "$ref": massdriver/aws-vpc
+      "$ref": aws-vpc
     accepter:
-      "$ref": massdriver/aws-vpc
+      "$ref": aws-vpc
 artifacts:
   properties: {}
 ui:
