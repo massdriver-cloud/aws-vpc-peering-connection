@@ -36,10 +36,8 @@ variable "accepter_vpc_cidr" {
 }
 variable "aws_authentication" {
   type = object({
-    data = object({
-      arn         = string
-      external_id = optional(string)
-    })
+    arn         = string
+    external_id = string
   })
 }
 variable "md_metadata" {

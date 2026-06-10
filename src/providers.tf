@@ -16,8 +16,8 @@ provider "aws" {
   alias  = "requester"
   region = var.requester.specs.aws.region
   assume_role {
-    role_arn    = var.aws_authentication.data.arn
-    external_id = var.aws_authentication.data.external_id
+    role_arn    = var.aws_authentication.arn
+    external_id = var.aws_authentication.external_id
   }
   default_tags {
     tags = var.md_metadata.default_tags
@@ -28,8 +28,8 @@ provider "aws" {
   alias  = "accepter"
   region = try(var.accepter.specs.aws.region, var.requester.specs.aws.region)
   assume_role {
-    role_arn    = var.aws_authentication.data.arn
-    external_id = var.aws_authentication.data.external_id
+    role_arn    = var.aws_authentication.arn
+    external_id = var.aws_authentication.external_id
   }
   default_tags {
     tags = var.md_metadata.default_tags
