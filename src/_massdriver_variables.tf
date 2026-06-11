@@ -3,20 +3,18 @@
 // To opt a variable out of regeneration, move it to another file (e.g. variables.tf).
 variable "accepter" {
   type = object({
-    data = object({
-      infrastructure = object({
-        arn  = string
-        cidr = string
-        internal_subnets = list(object({
-          arn = string
-        }))
-        private_subnets = list(object({
-          arn = string
-        }))
-        public_subnets = list(object({
-          arn = string
-        }))
-      })
+    infrastructure = object({
+      arn  = string
+      cidr = string
+      internal_subnets = list(object({
+        arn = string
+      }))
+      private_subnets = list(object({
+        arn = string
+      }))
+      public_subnets = list(object({
+        arn = string
+      }))
     })
     specs = optional(object({
       aws = optional(object({
@@ -37,7 +35,7 @@ variable "accepter_vpc_cidr" {
 variable "aws_authentication" {
   type = object({
     arn         = string
-    external_id = string
+    external_id = optional(string)
   })
 }
 variable "md_metadata" {
@@ -63,20 +61,18 @@ variable "md_metadata" {
 }
 variable "requester" {
   type = object({
-    data = object({
-      infrastructure = object({
-        arn  = string
-        cidr = string
-        internal_subnets = list(object({
-          arn = string
-        }))
-        private_subnets = list(object({
-          arn = string
-        }))
-        public_subnets = list(object({
-          arn = string
-        }))
-      })
+    infrastructure = object({
+      arn  = string
+      cidr = string
+      internal_subnets = list(object({
+        arn = string
+      }))
+      private_subnets = list(object({
+        arn = string
+      }))
+      public_subnets = list(object({
+        arn = string
+      }))
     })
     specs = optional(object({
       aws = optional(object({

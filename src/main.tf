@@ -1,20 +1,20 @@
 locals {
   create_accepter = var.accepter != null ? true : false
 
-  requester_vpc_id   = element(split("/", var.requester.data.infrastructure.arn), 1)
-  requester_vpc_cidr = var.requester.data.infrastructure.cidr
+  requester_vpc_id   = element(split("/", var.requester.infrastructure.arn), 1)
+  requester_vpc_cidr = var.requester.infrastructure.cidr
 
-  accepter_vpc_cidr    = try(var.accepter.data.infrastructure.cidr, var.accepter_vpc_cidr)
+  accepter_vpc_cidr    = try(var.accepter.infrastructure.cidr, var.accepter_vpc_cidr)
   accepter_vpc_id      = element(split("/", data.aws_arn.accepter_vpc.resource), 1)
   accepter_vpc_region  = data.aws_arn.accepter_vpc.region
   accepter_vpc_account = data.aws_arn.accepter_vpc.account
 }
 
 data "aws_arn" "requester_vpc" {
-  arn = var.requester.data.infrastructure.arn
+  arn = var.requester.infrastructure.arn
 }
 data "aws_arn" "accepter_vpc" {
-  arn = try(var.accepter.data.infrastructure.arn, var.accepter_vpc_arn)
+  arn = try(var.accepter.infrastructure.arn, var.accepter_vpc_arn)
 }
 
 resource "aws_vpc_peering_connection" "requester" {
